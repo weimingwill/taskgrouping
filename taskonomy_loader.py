@@ -1,6 +1,7 @@
 import torch.utils.data as data
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 import os
 import os.path
 import zipfile as zf
@@ -112,9 +113,6 @@ class TaskonomyLoader(data.Dataset):
 
             flip_ud = (random.randint(0,1) > .5 and (self.augment=="aggressive"))
 
-            
-            
-            
             pil_im = Image.open(file_name)
             
             if flip_lr:
@@ -336,8 +334,24 @@ def get_masks():
 
         
 
+def debug_data():
+    loader = TaskonomyLoader(
+        '/home/tstand/Desktop/lite_taskonomy/',
+        label_set=['segment_semantic'],
+
+        augment=True)
         
 
 if __name__ == "__main__":
-    test()
+    # from apex.parallel import DistributedDataParallel as DDP
+    # print("test")
+    file_name = "/mnt/lustre/zhuangweiming/datasets/taskonomy_datasets/rgb/beechwood/point_1113_view_5_domain_rgb.png"
+
+    pil_im = Image.open(file_name)
+            
+    pil_im = ImageOps.mirror(pil_im)
+
+    print("Completed")
+    # test()
+
     #get_masks()

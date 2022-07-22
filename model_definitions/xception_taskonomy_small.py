@@ -474,19 +474,19 @@ class XceptionTaskonomySmall(nn.Module):
     Xception optimized for the ImageNet dataset, as specified in
     https://arxiv.org/pdf/1610.02357.pdf
     """
-    def __init__(self, tasks=None,num_classes=None, ozan=False, half=False):
+    def __init__(self, tasks=None,num_classes=None, ozan=False, half_sized_output=False):
         """ Constructor
         Args:
             num_classes: number of classes
         """
         super(XceptionTaskonomySmall, self).__init__()
-        print('half is',half)
-        if half=='Quad':
+        print('half is',half_sized_output)
+        if half_sized_output=='Quad':
             print('running quad code')
             self.encoder=EncoderQuad()
-        elif half == 'Double':
+        elif half_sized_output == 'Double':
             self.encoder=EncoderDouble()
-        elif half:
+        elif half_sized_output:
             self.encoder=EncoderHalf()
         else:
             self.encoder=Encoder()
@@ -643,7 +643,7 @@ def xception_taskonomy_small_half(pretrained=False,**kwargs):
     #     num_classes=1000
     # if pretrained:
     #     kwargs['num_classes']=1000
-    model = XceptionTaskonomySmall(half=True,**kwargs)
+    model = XceptionTaskonomySmall(half_sized_output=True,**kwargs)
 
     
     if pretrained:
@@ -678,7 +678,7 @@ def xception_taskonomy_small_quad(pretrained=False,**kwargs):
     # if pretrained:
     #     kwargs['num_classes']=1000
     print('got quad')
-    model = XceptionTaskonomySmall(half='Quad',**kwargs)
+    model = XceptionTaskonomySmall(half_sized_output='Quad',**kwargs)
 
     
     if pretrained:
@@ -713,7 +713,7 @@ def xception_taskonomy_small_double(pretrained=False,**kwargs):
     # if pretrained:
     #     kwargs['num_classes']=1000
     print('got double')
-    model = XceptionTaskonomySmall(half='Double',**kwargs)
+    model = XceptionTaskonomySmall(half_sized_output='Double',**kwargs)
 
     
     if pretrained:
@@ -748,7 +748,7 @@ def xception_taskonomy_small_quad_ozan(pretrained=False,**kwargs):
     # if pretrained:
     #     kwargs['num_classes']=1000
     print('got quad ozan')
-    model = XceptionTaskonomySmall(ozan=True,half='Quad',**kwargs)
+    model = XceptionTaskonomySmall(ozan=True,half_sized_output='Quad',**kwargs)
 
     
     if pretrained:
@@ -784,7 +784,7 @@ def xception_taskonomy_small_double_ozan(pretrained=False,**kwargs):
     # if pretrained:
     #     kwargs['num_classes']=1000
     print('got double')
-    model = XceptionTaskonomySmall(ozan=True,half='Double',**kwargs)
+    model = XceptionTaskonomySmall(ozan=True,half_sized_output='Double',**kwargs)
 
     
     if pretrained:
@@ -814,7 +814,7 @@ def xception_taskonomy_small_half_ozan(pretrained=False,**kwargs):
     Construct Xception.
     """
     
-    model = XceptionTaskonomySmall(ozan=True,half=True,**kwargs)
+    model = XceptionTaskonomySmall(ozan=True,half_sized_output=True,**kwargs)
 
     
     if pretrained:
