@@ -86,4 +86,5 @@ if args.model_file:
                 cur = .99*cur+i*.01
                 loss_history3.append(cur)
             plt.plot(range(len(loss_history3)),loss_history3)
-            plt.show()
+            plt.savefig(args.model_file.replace("pth.tar", "png"))
+            # plt.show()

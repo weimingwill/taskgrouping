@@ -322,12 +322,12 @@ def print_table(table_list, go_back=True):
         print()
         print()
         return
-    if go_back:
-        print("\033[F",end='')
-        print("\033[K",end='')
-        for i in range(len(table_list)):
-            print("\033[F",end='')
-            print("\033[K",end='')
+    # if go_back:
+    #     print("\033[F",end='')
+    #     print("\033[K",end='')
+    #     for i in range(len(table_list)):
+    #         print("\033[F",end='')
+    #         print("\033[K",end='')
 
 
     lens = defaultdict(int)
@@ -340,8 +340,8 @@ def print_table(table_list, go_back=True):
     # printed_table_list_header = []
     for ii,to_print in enumerate(table_list[0]):
         for title,val in to_print.items():
-
             print('{0:^{1}}'.format(title,lens[(title,ii)]),end=" ")
+
     for i in table_list:
         print()
         for ii,to_print in enumerate(i):
@@ -603,7 +603,8 @@ class Trainer:
                     to_print['ETA']= ('{0}').format(time.strftime("%H:%M:%S", time.gmtime(int(eta+elapsed_time_for_epoch))))
                     to_print['ttest']= ('{0:0.3g},{1:0.3g}').format(z_diff,ttest_p)
                 if batch_num % self.args.print_frequency == 0:
-                    print_table(self.progress_table+[[to_print]])
+                    # print_table(self.progress_table+[[to_print]])
+                    print_table([[to_print]])
                 
 
         
@@ -694,7 +695,8 @@ class Trainer:
                     to_print[name]= ('{meter.avg:.4g}').format(meter=meter)
                 progress=train_table+[to_print]
                 if batch_num % self.args.print_frequency == 0:
-                    print_table(self.progress_table+[progress])
+                    # print_table(self.progress_table+[progress])
+                    print_table([progress])
 
         epoch_time = time.time()-epoch_start_time
 
